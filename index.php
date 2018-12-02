@@ -2,29 +2,35 @@
 <?php include "_header.php" ?>
     <h1>Home page</h1>
 
-
+<a href="create.php" class="btn btn-success">Додати нового телесика</a>
 <table class="table table-bordered">
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-    </tr>
+    <?php
+        $res = $connect->query("SELECT Id, Name, Email FROM tblusers");
+        $counter=0;
+        while ($row = $res->fetch_assoc()) {
+            $counter++;
+            echo "
+            <tr>
+                <th scope=\"row\">{$counter}</th>
+                <td>{$row['Name']}</td>
+                <td>{$row['Email']}</td>
+                <td>
+                    <a class=\"btn btn-primary\" href=\"#\" data-id=\"{$row['Id']}\" role=\"button\">Edit</a>
+                    <a class=\"btn btn-danger\" href=\"#\" data-id=\"{$row['Id']}\" role=\"button\">Delete</a>
+                <td>
+            </tr>
+            ";
+        }
+    ?>
     </tbody>
 </table>
 
